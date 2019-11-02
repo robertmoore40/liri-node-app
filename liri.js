@@ -1,4 +1,6 @@
 require("dotenv").config();
+require('dotenv').config({path: "dotenvfile.env"});
+console.log(process.env.NAME) //YOUR_NAME
 
 // 8. Add the code required to import the `keys.js` file and store it in a variable.
 
