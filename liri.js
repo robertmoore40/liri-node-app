@@ -1,16 +1,23 @@
 require("dotenv").config();
-require('dotenv').config({path: "dotenvfile.env"});
-console.log(process.env.NAME) //YOUR_NAME
+// require('dotenv').config({path: "dotenvfile.env"});
+// console.log(process.env.NAME) //YOUR_NAME
 
 // 8. Add the code required to import the `keys.js` file and store it in a variable.
 
 var keys = require("./keys.js");
+var request = require('request');
+var inquirer = require('inquirer');
   
 // * You should then be able to access your keys information like so
 
+// Need to write in line where spotify is required PACKAGE NAME??
+var Spotify = require('node-spotify-api')
 var spotify = new Spotify(keys.spotify);
+
 var axiosPackage = require("axios");
 var momentPackage = require("moment");
+
+
 var fsPackage = require("fs"); 
 
 // 9. Make it so liri.js can take in one of the following commands:
@@ -19,25 +26,103 @@ var fsPackage = require("fs");
 //    * `movie-this` 
 //    * `do-what-it-says`
 
-var liriInput = process.argv[2];
-switch (liriInput) {
-    case "concert-this":
-        concertThis()
-    break;
-    case "spotify-this-song":
-        spotifyThisSong()
-    break;
-    case "movie-this":
-        movieThis()
-    break;
-    case "do-what-it-says":
-        doWhatItSays()
-    break;
 
-    default:
-        console.log("My responses are limited. You must ask the right questions.");
-    // write default to return a list of possible commands
-}
+// Inquirer prompt
+inquirer.prompt({
+    type: 'list',
+    name: 'choice',
+    message: 'Choose a function',
+    choices: ["concertThis", "spotifyThis", "movieThis", "doWhatItSays"]
+}).then(liri => {
+    switch (true) {
+        case liri.choice === "concertThis":
+            concertThis();
+            break;
+
+        case liri.choice === "spotifyThis":
+            spotifyThisSong();
+            break;
+
+        case liri.choice === "movieThis":
+            movieThis();
+            break;
+
+        case liri.choice === "doWhatItSays":
+            doWhatItSays();
+            break;
+
+        default:
+
+
+// let searchTerm = [];
+// for (let i = 3; i < process.argv.length; i++) {
+//     searchTerm.push(process.argv[i]);
+// }
+// var userInput;
+// if (searchTerm.length > 0) {
+//     userInput = true;
+// } else {
+//     userInput = false;
+// }
+
+// var liriInput = process.argv[2];
+// switch (liriInput) {
+//     case "concert-this":
+//         concertThis()
+//     break;
+//     case "spotify-this-song":
+//         spotifyThisSong()
+//     break;
+//     case "movie-this":
+//         movieThis()
+//     break;
+//     case "do-what-it-says":
+//         doWhatItSays()
+//     break;
+
+//     default:
+//         console.log("My responses are limited. You must ask the right questions.");
+//     // write default to return a list of possible commands
+// }
+// // 
+// // 
+
+// switch (process.argv[2]) {
+//     case "spotify-this-song":
+//         if (userInput) {
+//             searchTerm = searchTerm.join(" ");
+//             return runSpotify(searchTerm);
+//         } else {
+//             // let sign = "The Sign"
+//             // runSpotify(sign);
+//             // Instead default;
+//             // run alert saying need to add a search term
+//             return alertUser();
+//         }
+//     case "movie-this":
+//         if (process.argv.length > 3) {
+//             searchTerm = searchTerm.join("+");
+//             runOMDB(searchTerm);
+//         } else {
+//             let nobody = "Mr. Nobody"
+//             runOMDB(nobody);
+//         }
+//         break;
+//     case "concert-this":
+//         if (process.argv.length > 3) {
+//             search = search.join("+");
+//             runBandsInTown(search);
+//         } else {
+//             let myBand = "Metallica"
+//             runBandsInTown(myBand);
+//         }
+//         break;
+//     case "do-what-it-says":
+//         runRandom();
+//         break;
+//     default:
+//         console.log("this is not working as expected, check spelling of your search method");
+
 
 function concertThis() {
     console.log("concert-this");
@@ -92,7 +177,7 @@ function movieThis() {
 //    * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
 function doWhatItSays() 
 {console.log("do-what-it-say");
-}
+}}});
 
 // 4. `node liri.js do-what-it-says`
 //    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
