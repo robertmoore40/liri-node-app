@@ -27,6 +27,19 @@ var fsPackage = require("fs");
 //    * `do-what-it-says`
 
 
+// var userInput = process.argv[2];
+
+var userInput="";
+
+	for (var i = 3; i < process.argv.length; i++)
+	{
+		userInput+=process.argv[i];
+	}
+console.log(userInput);
+
+// Technically this isn't an array - join function isn't working - need to convert multiple inputs into array
+// Need to adjust this. Finished 11/6/19 13:35
+
 // Inquirer prompt
 inquirer.prompt({
     type: 'list',
@@ -36,19 +49,19 @@ inquirer.prompt({
 }).then(liri => {
     switch (true) {
         case liri.choice === "concertThis":
-            concertThis();
+            concertThis(userInput);
             break;
 
         case liri.choice === "spotifyThis":
-            spotifyThisSong();
+            spotifyThisSong(userInput);
             break;
 
         case liri.choice === "movieThis":
-            movieThis();
+            movieThis(userInput);
             break;
 
         case liri.choice === "doWhatItSays":
-            doWhatItSays();
+            doWhatItSays(userInput);
             break;
 
         default:
@@ -126,6 +139,7 @@ inquirer.prompt({
 
 function concertThis() {
     console.log("concert-this");
+    console.log(userInput);
 }
 
 
@@ -138,6 +152,7 @@ function concertThis() {
 //       * `https://rest.bandsintown.com/artists/celine+dion/events?app_id=codingbootcamp`
 function spotifyThisSong() {
     console.log("spotify-this-song");
+    console.log(userInput);
 }
 
 
@@ -157,6 +172,7 @@ function spotifyThisSong() {
 //    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
 function movieThis() {
     console.log("movie-this");
+    console.log(userInput);
 }
 
 // 3. `node liri.js movie-this '<movie name here>'`
@@ -177,6 +193,7 @@ function movieThis() {
 //    * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
 function doWhatItSays() 
 {console.log("do-what-it-say");
+console.log(userInput);
 }}});
 
 // 4. `node liri.js do-what-it-says`
