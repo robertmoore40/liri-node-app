@@ -1,44 +1,36 @@
 require("dotenv").config();
-// require('dotenv').config({path: "dotenvfile.env"});
-// console.log(process.env.NAME) //YOUR_NAME
-
-// 8. Add the code required to import the `keys.js` file and store it in a variable.
 
 var keys = require("./keys.js");
 var request = require('request');
 var inquirer = require('inquirer');
-  
-// * You should then be able to access your keys information like so
-
-// Need to write in line where spotify is required PACKAGE NAME??
 var Spotify = require('node-spotify-api')
 var spotify = new Spotify(keys.spotify);
-
 var axiosPackage = require("axios");
 var momentPackage = require("moment");
-
-
 var fsPackage = require("fs"); 
+var userInput = process.argv[2];
 
-// 9. Make it so liri.js can take in one of the following commands:
-//    * `concert-this`
-//    * `spotify-this-song`
-//    * `movie-this` 
-//    * `do-what-it-says`
-
-
-// var userInput = process.argv[2];
-
-var userInput="";
-
-	for (var i = 3; i < process.argv.length; i++)
-	{
-		userInput+=process.argv[i];
-	}
 console.log(userInput);
 
-// Technically this isn't an array - join function isn't working - need to convert multiple inputs into array
-// Need to adjust this. Finished 11/6/19 13:35
+// var userInput="";
+// var userInput = process.argv.splice(2, process.argv.length - 1)
+// var userInput = process.argv.join('');
+// console.log(userInput);
+// if (process.argv.length > 3){
+// 	for (var i = 3; i < process.argv.length; i++)
+// 	{
+//         // userInput += userInput.join("+");
+//         var userInput = process.argv.join('');
+//         console.log(userInput);
+//         // userInput +=process.argv[i] + "+";
+//         console.log("if returned");
+//         console.log(userInput);
+//     }}
+// else { 
+//     console.log("else returned");
+//     console.log(userInput);
+// };
+    
 
 // Inquirer prompt
 inquirer.prompt({
@@ -65,8 +57,7 @@ inquirer.prompt({
             break;
 
         default:
-
-
+    }
 // let searchTerm = [];
 // for (let i = 3; i < process.argv.length; i++) {
 //     searchTerm.push(process.argv[i]);
@@ -77,82 +68,39 @@ inquirer.prompt({
 // } else {
 //     userInput = false;
 // }
-
-// var liriInput = process.argv[2];
-// switch (liriInput) {
-//     case "concert-this":
-//         concertThis()
-//     break;
-//     case "spotify-this-song":
-//         spotifyThisSong()
-//     break;
-//     case "movie-this":
-//         movieThis()
-//     break;
-//     case "do-what-it-says":
-//         doWhatItSays()
-//     break;
-
-//     default:
-//         console.log("My responses are limited. You must ask the right questions.");
-//     // write default to return a list of possible commands
-// }
-// // 
-// // 
-
-// switch (process.argv[2]) {
-//     case "spotify-this-song":
-//         if (userInput) {
-//             searchTerm = searchTerm.join(" ");
-//             return runSpotify(searchTerm);
-//         } else {
-//             // let sign = "The Sign"
-//             // runSpotify(sign);
-//             // Instead default;
-//             // run alert saying need to add a search term
-//             return alertUser();
-//         }
-//     case "movie-this":
-//         if (process.argv.length > 3) {
-//             searchTerm = searchTerm.join("+");
-//             runOMDB(searchTerm);
-//         } else {
-//             let nobody = "Mr. Nobody"
-//             runOMDB(nobody);
-//         }
-//         break;
-//     case "concert-this":
-//         if (process.argv.length > 3) {
-//             search = search.join("+");
-//             runBandsInTown(search);
-//         } else {
-//             let myBand = "Metallica"
-//             runBandsInTown(myBand);
-//         }
-//         break;
-//     case "do-what-it-says":
-//         runRandom();
-//         break;
-//     default:
-//         console.log("this is not working as expected, check spelling of your search method");
-
-
 function concertThis() {
     console.log("concert-this");
     console.log(userInput);
+    if (userInput === undefined) {
+        userInput = "Celine Dion";
+    }
+
+    var artist = userInput;
+    // Homework instructions want an arguement variable change to artist
+        request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
+            {
+           
+                console.log("Venue: " + JSON.parse(body)[0].venue.name);
+                console.log("Location: " + JSON.parse(body)[0].venue.city + ", " + JSON.parse(body)[0].venue.region);
+                console.log("Date: " + momentPackage(JSON.parse(body)[0].datetime).format("MM/DD/YYYY"));
+        
+            }
+        });
+    console.log(userInput)
+    // Celine Dion - Montreal given, no region (Similar to Project1 Error - Only works correctly int the USA)
+    // Tested Tool, Train, Anberlin, Tritonal
+    // Multiple word inputs not working, venue error if no concert upcoming on spotify API
+    // 
 }
 
-
-// 1. `node liri.js concert-this <artist/band name here>`
-//    * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
-//      * Name of the venue
-//      * Venue location
-//      * Date of the Event (use moment to format this as "MM/DD/YYYY")
-//     * **Important**: There is no need to sign up for a Bands in Town `api_id` key. Use the `codingbootcamp` as your `app_id`. For example, the URL used to search for "Celine Dion" would look like the following:
-//       * `https://rest.bandsintown.com/artists/celine+dion/events?app_id=codingbootcamp`
 function spotifyThisSong() {
     console.log("spotify-this-song");
     console.log(userInput);
+    if (userInput === undefined) {
+        userInput = "The Sign";
+    }
+    console.log(userInput)
+    
 }
 
 
@@ -173,6 +121,9 @@ function spotifyThisSong() {
 function movieThis() {
     console.log("movie-this");
     console.log(userInput);
+    if (userInput === undefined) {
+        userInput = "Mr. Nobody";
+    }
 }
 
 // 3. `node liri.js movie-this '<movie name here>'`
@@ -194,7 +145,11 @@ function movieThis() {
 function doWhatItSays() 
 {console.log("do-what-it-say");
 console.log(userInput);
-}}});
+if (userInput === undefined) {
+    userInput = "I Want It That Way";
+    spotifyThisSong(userInput);
+}
+}});
 
 // 4. `node liri.js do-what-it-says`
 //    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
