@@ -9,8 +9,31 @@ var axiosPackage = require("axios");
 var momentPackage = require("moment");
 var fsPackage = require("fs"); 
 var userInput = process.argv[2];
-
+var argument = "";
+var searchTerm = "";
 console.log(userInput);
+
+// if (process.argv[2] === 'concertThis' || 'spotifyThis' || 'movieThis' ||'doWhatItSays')
+if (process.argv.length > 3) ;
+{	var userInput="";
+    for (var i = 2; i < process.argv.length; i++)
+	{
+    userInput += "+" + process.argv[i];
+    // userInput += " " + process.argv[i]; USE IF BandinTown not recognizing + 
+	}
+    console.log("Before removal " + userInput);
+    // userInput = userInput.substr(1);
+    userInput = userInput.substring(1);
+    console.log("After removal " + userInput);
+}
+
+
+// else
+// {
+// 	userInput = process.argv[3];
+// }
+// console.log("The Final Output is " + userInput)
+
 
 // var userInput="";
 // var userInput = process.argv.splice(2, process.argv.length - 1)
@@ -30,7 +53,16 @@ console.log(userInput);
 //     console.log("else returned");
 //     console.log(userInput);
 // };
-    
+// let searchTerm = [];
+// for (let i = 3; i < process.argv.length; i++) {
+//     searchTerm.push(process.argv[i]);
+// }
+// var userInput;
+// if (searchTerm.length > 0) {
+//     userInput = true;
+// } else {
+//     userInput = false;
+// }
 
 // Inquirer prompt
 inquirer.prompt({
@@ -58,16 +90,7 @@ inquirer.prompt({
 
         default:
     }
-// let searchTerm = [];
-// for (let i = 3; i < process.argv.length; i++) {
-//     searchTerm.push(process.argv[i]);
-// }
-// var userInput;
-// if (searchTerm.length > 0) {
-//     userInput = true;
-// } else {
-//     userInput = false;
-// }
+
 function concertThis() {
     console.log("concert-this");
     console.log(userInput);
