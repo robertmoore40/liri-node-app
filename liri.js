@@ -9,60 +9,19 @@ var axiosPackage = require("axios");
 var momentPackage = require("moment");
 var fsPackage = require("fs"); 
 var userInput = process.argv[2];
-var argument = "";
-var searchTerm = "";
-console.log(userInput);
 
-// if (process.argv[2] === 'concertThis' || 'spotifyThis' || 'movieThis' ||'doWhatItSays')
+
 if (process.argv.length > 3) ;
 {	var userInput="";
     for (var i = 2; i < process.argv.length; i++)
 	{
     userInput += "+" + process.argv[i];
-    // userInput += " " + process.argv[i]; USE IF BandinTown not recognizing + 
+
 	}
-    console.log("Before removal " + userInput);
-    // userInput = userInput.substr(1);
     userInput = userInput.substring(1);
-    console.log("After removal " + userInput);
+    // console.log("After removal " + userInput);
 }
 
-
-// else
-// {
-// 	userInput = process.argv[3];
-// }
-// console.log("The Final Output is " + userInput)
-
-
-// var userInput="";
-// var userInput = process.argv.splice(2, process.argv.length - 1)
-// var userInput = process.argv.join('');
-// console.log(userInput);
-// if (process.argv.length > 3){
-// 	for (var i = 3; i < process.argv.length; i++)
-// 	{
-//         // userInput += userInput.join("+");
-//         var userInput = process.argv.join('');
-//         console.log(userInput);
-//         // userInput +=process.argv[i] + "+";
-//         console.log("if returned");
-//         console.log(userInput);
-//     }}
-// else { 
-//     console.log("else returned");
-//     console.log(userInput);
-// };
-// let searchTerm = [];
-// for (let i = 3; i < process.argv.length; i++) {
-//     searchTerm.push(process.argv[i]);
-// }
-// var userInput;
-// if (searchTerm.length > 0) {
-//     userInput = true;
-// } else {
-//     userInput = false;
-// }
 
 // Inquirer prompt
 inquirer.prompt({
@@ -93,13 +52,11 @@ inquirer.prompt({
 
 function concertThis() {
     console.log("concert-this");
-    console.log(userInput);
-    if (userInput === undefined) {
+    if (process.argv[3] === undefined) {
         userInput = "Celine Dion";
     }
 
     var artist = userInput;
-    // Homework instructions want an arguement variable change to artist
         request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
             {
            
@@ -110,10 +67,7 @@ function concertThis() {
             }
         });
     console.log(userInput)
-    // Celine Dion - Montreal given, no region (Similar to Project1 Error - Only works correctly int the USA)
-    // Tested Tool, Train, Anberlin, Tritonal
-    // Multiple word inputs not working, venue error if no concert upcoming on spotify API
-    // 
+    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys
 }
 
 function spotifyThisSong() {
@@ -166,7 +120,7 @@ function movieThis() {
 //      * It's on Netflix!
 //    * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
 function doWhatItSays() 
-{console.log("do-what-it-say");
+{console.log("do-what-it-says");
 console.log(userInput);
 if (userInput === undefined) {
     userInput = "I Want It That Way";
