@@ -52,9 +52,9 @@ inquirer.prompt({
 
 function concertThis() {
     console.log("concert-this");
-    if (process.argv[3] === undefined) {
-        userInput = "Celine Dion";
-    }
+    // if (process.argv[3] === undefined) {
+    //     userInput = "Celine Dion";
+    // }
 
     var artist = userInput;
         request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
@@ -67,27 +67,29 @@ function concertThis() {
             }
         });
     console.log(userInput)
-    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys
+    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys    
 }
 
 function spotifyThisSong() {
-    console.log("spotify-this-song");
-    console.log(userInput);
-    if (userInput === undefined) {
-        userInput = "The Sign";
-    }
-    console.log(userInput)
-    
+
+    spotify.search({
+        type: 'track',
+        query: userInput,
+    }, function (err, response) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+
+        console.log("artist name  :", response.tracks.items[0].album.artists[0].name);
+        console.log("song name: ", response.tracks.items[0].name);
+        console.log("preview url: ", response.tracks.items[0].href);
+        console.log("Album name", response.tracks.items[0].album.name);
+        ;
+
+
+    });
 }
 
-
-
-// 2. `node liri.js spotify-this-song '<song name here>'`
-//    * This will show the following information about the song in your terminal/bash window
-//      * Artist(s)
-//      * The song's name
-//      * A preview link of the song from Spotify
-//      * The album that the song is from
 //    * If no song is provided then your program will default to "The Sign" by Ace of Base.
 //    * You will utilize the [node-spotify-api](https://www.npmjs.com/package/node-spotify-api) package in order to retrieve song information from the Spotify API.
 //    * The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
@@ -96,11 +98,23 @@ function spotifyThisSong() {
 //    * Step Three: Once logged in, navigate to <https://developer.spotify.com/my-applications/#!/applications/create> to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
 //    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
 function movieThis() {
-    console.log("movie-this");
-    console.log(userInput);
-    if (userInput === undefined) {
-        userInput = "Mr. Nobody";
-    }
+    var movie = userInput
+    var searchURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+    request(searchURL, function (error, response, body) {
+            var movie = {
+                Title: JSON.parse(body).Title,
+                Year: JSON.parse(body).Year,
+                IMDB_Rating: JSON.parse(body).imdbRating,
+                Rotten_Tomatoes_Rating: JSON.parse(body).Ratings[1].Value,
+                Country: JSON.parse(body).Country,
+                Language: JSON.parse(body).Language,
+                Plot: JSON.parse(body).Plot,
+                Actors: JSON.parse(body).Actors,
+            }
+        console.log("Completed")
+        console.log(movie.Title, movie.Year,)
+      
+    });
 }
 
 // 3. `node liri.js movie-this '<movie name here>'`
