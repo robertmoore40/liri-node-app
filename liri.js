@@ -10,6 +10,24 @@ var momentPackage = require("moment");
 var fsPackage = require("fs"); 
 var userInput = process.argv[2];
 
+// var array = [];
+
+// for (var i = 2; i < process.argv.length; i++) {
+//     array.push(process.argv[i]);
+// }
+
+// console.log(array.join("+"));
+// Austin Bruch Code
+function sampleFunction() {
+if (process.argv[2] === undefined){
+    userInput = "Celine+Dion"
+console.log("undefined");
+}
+    userInput = userInput;
+console.log("defined as "+ userInput);};
+
+sampleFunction();
+
 
 if (process.argv.length > 3) ;
 {	var userInput="";
@@ -51,19 +69,12 @@ inquirer.prompt({
     }
 
 function concertThis() {
-    console.log("concert-this");
-    // if (process.argv[2] === undefined) {
-    //     userInput = "Celine Dion";
-    // }
-    // Check length of process.argv
-    // if process.argv > 2
-    // {
-    // run userinput
-    // }
-    // else {
-    // run celine dion
-    // }
 
+    if(!process.argv[3]){
+        artist = "Celine+Dion";
+    }
+   
+if (process.argv.length > 2) {
     var artist = userInput;
         request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
             {
@@ -75,7 +86,23 @@ function concertThis() {
             }
         });
     console.log(userInput)
-    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys    
+
+     }
+    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys
+    else {
+        console.log("Run Celine Dion")
+        var artist = "Celine+Dion";
+        request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
+            {
+           
+                console.log("Venue: " + JSON.parse(body)[0].venue.name);
+                console.log("Location: " + JSON.parse(body)[0].venue.city + ", " + JSON.parse(body)[0].venue.region);
+                console.log("Date: " + momentPackage(JSON.parse(body)[0].datetime).format("MM/DD/YYYY"));
+        
+            }
+        });
+        
+    }    
 }
 
 function spotifyThisSong() {
