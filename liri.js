@@ -11,11 +11,9 @@ var fsPackage = require("fs");
 var userInput = process.argv[2];
 
 // var array = [];
-
 // for (var i = 2; i < process.argv.length; i++) {
 //     array.push(process.argv[i]);
 // }
-
 // console.log(array.join("+"));
 // Austin Bruch Code
 
@@ -26,7 +24,6 @@ if (process.argv.length > 3) ;
     userInput += "+" + process.argv[i];
 	}
     userInput = userInput.substring(1);
-    // console.log("After removal " + userInput);
 }
 
 
@@ -58,6 +55,7 @@ inquirer.prompt({
     }
 
 function concertThis() {
+    concertThisCheck();
     var artist = userInput;
         request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
             {
@@ -71,6 +69,7 @@ function concertThis() {
 
 
 function spotifyThisSong() {
+    spotifyThisCheck();
     spotify.search({
         type: 'track',
         query: userInput,
@@ -78,14 +77,23 @@ function spotifyThisSong() {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+else {
+    // console.log("artist name  :", response.tracks.items[0].album.artists[0].name);
+    // console.log("song name: ", response.tracks.items[0].name);
+    // console.log("preview url: ", response.tracks.items[0].href);
+    // console.log("Album name", response.tracks.items[0].album.name);
 
-        console.log("artist name  :", response.tracks.items[0].album.artists[0].name);
-        console.log("song name: ", response.tracks.items[0].name);
-        console.log("preview url: ", response.tracks.items[0].href);
-        console.log("Album name", response.tracks.items[0].album.name);
-        ;
-    });
-}
+    for (var i = 0; i < 3; i++) {
+        // The sign doesn't show up until the third result...
+        spotifyThisArray = 
+        console.log("artist name  :", response.tracks.items[i].album.artists[0].name);
+        console.log("song name: ", response.tracks.items[i].name);
+        console.log("preview url: ", response.tracks.items[i].href);
+        console.log("Album name", response.tracks.items[i].album.name);
+        console.log(spotifyThisArray);
+    };
+    }});
+};
 //    * If no song is provided then your program will default to "The Sign" by Ace of Base.
 
 function movieThis() {
@@ -102,7 +110,8 @@ function movieThis() {
                 Language: JSON.parse(body).Language,
                 Plot: JSON.parse(body).Plot,
                 Actors: JSON.parse(body).Actors,
-            }
+                }
+        // fsPackage.appendFile("log.txt", "Title: " + movie.Title + "\n"),
         console.log("Completed");
         console.log(movie.Title);
         console.log(movie.Year);
@@ -112,19 +121,28 @@ function movieThis() {
         console.log(movie.Language);
         console.log(movie.Plot);
         console.log(movie.Actors);
-    //   Got to finish console.log this data
+    //   Got to finish console.log ing this data
     });
 }
 
 //        * Rotten Tomatoes Rating of the movie.
 
 function doWhatItSays() 
-{console.log("do-what-it-says");
-console.log(userInput);
-if (userInput === undefined) {
-    userInput = "I Want It That Way";
-    spotifyThisSong(userInput);
-}
+{
+fsPackageTest();
+//     console.log("do-what-it-says");
+// console.log(userInput);
+// if (userInput === undefined) {
+//     userInput = "I Want It That Way";
+//     spotifyThisSong(userInput);
+// }
+// fsPackage.readFile('random.txt', 'utf8', function(err, data){
+// 		if (err){ 
+// 			return console.log(err);
+// 		}
+//         var testArray = data.split(',');
+//         console.log(testArray);
+// 	});
 }});
 
 // 4. `node liri.js do-what-it-says`
@@ -132,28 +150,38 @@ if (userInput === undefined) {
 //      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
 //      * Edit the text in random.txt to test out the feature for movie-this and concert-this
 
+function fsPackageTest() {
+
+data = "Test,Test,Test";
+fsPackageTest.appendFileSync('sample.txt',data, 'utf8',
+    function(err) { 
+        if (err) throw err;
+        console.log("Success")
+})};
+// Fix this - office hours Tuesday
+
 
 
 function concertThisCheck() {
 if (process.argv[2] === undefined){
     userInput = "Celine+Dion"
-console.log("undefined");
+console.log("undefined, therefore searching " + userInput);
 }
     userInput = userInput;
-console.log("defined as "+ userInput);};
+};
 
 function spotifyThisCheck() {
     if (process.argv[2] === undefined){
-        userInput = "The+Chain"
-    console.log("undefined");
+        userInput = "The+Sign"
+console.log("undefined, therefore searching " + userInput);
     }
         userInput = userInput;
-    console.log("defined as "+ userInput);};
+};
 
 function movieThisCheck() {
 if (process.argv[2] === undefined){
     userInput = "Mr+Nobody"
-console.log("undefined");
+console.log("undefined, therefore searching " + userInput);
 }
     userInput = userInput;
-console.log("defined as "+ userInput);};
+};
