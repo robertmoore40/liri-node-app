@@ -18,23 +18,12 @@ var userInput = process.argv[2];
 
 // console.log(array.join("+"));
 // Austin Bruch Code
-function sampleFunction() {
-if (process.argv[2] === undefined){
-    userInput = "Celine+Dion"
-console.log("undefined");
-}
-    userInput = userInput;
-console.log("defined as "+ userInput);};
-
-sampleFunction();
-
 
 if (process.argv.length > 3) ;
 {	var userInput="";
     for (var i = 2; i < process.argv.length; i++)
 	{
     userInput += "+" + process.argv[i];
-
 	}
     userInput = userInput.substring(1);
     // console.log("After removal " + userInput);
@@ -69,44 +58,19 @@ inquirer.prompt({
     }
 
 function concertThis() {
-
-    if(!process.argv[3]){
-        artist = "Celine+Dion";
-    }
-   
-if (process.argv.length > 2) {
     var artist = userInput;
         request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
             {
-           
                 console.log("Venue: " + JSON.parse(body)[0].venue.name);
                 console.log("Location: " + JSON.parse(body)[0].venue.city + ", " + JSON.parse(body)[0].venue.region);
                 console.log("Date: " + momentPackage(JSON.parse(body)[0].datetime).format("MM/DD/YYYY"));
-        
             }
         });
     console.log(userInput)
+     };
 
-     }
-    // Tested Tool, Train, Anberlin, Tritonal, They Might Be Giants, The Black Keys
-    else {
-        console.log("Run Celine Dion")
-        var artist = "Celine+Dion";
-        request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
-            {
-           
-                console.log("Venue: " + JSON.parse(body)[0].venue.name);
-                console.log("Location: " + JSON.parse(body)[0].venue.city + ", " + JSON.parse(body)[0].venue.region);
-                console.log("Date: " + momentPackage(JSON.parse(body)[0].datetime).format("MM/DD/YYYY"));
-        
-            }
-        });
-        
-    }    
-}
 
 function spotifyThisSong() {
-
     spotify.search({
         type: 'track',
         query: userInput,
@@ -120,19 +84,12 @@ function spotifyThisSong() {
         console.log("preview url: ", response.tracks.items[0].href);
         console.log("Album name", response.tracks.items[0].album.name);
         ;
-
-
     });
 }
-//  integrate ace of base "the sign"
 //    * If no song is provided then your program will default to "The Sign" by Ace of Base.
-//    * You will utilize the [node-spotify-api](https://www.npmjs.com/package/node-spotify-api) package in order to retrieve song information from the Spotify API.
-//    * The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
-//    * Step One: Visit <https://developer.spotify.com/my-applications/#!/>
-//    * Step Two: Either login to your existing Spotify account or create a new one (a free account is fine) and log in.
-//    * Step Three: Once logged in, navigate to <https://developer.spotify.com/my-applications/#!/applications/create> to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
-//    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
+
 function movieThis() {
+    movieThisCheck() ;
     var movie = userInput
     var searchURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
     request(searchURL, function (error, response, body) {
@@ -159,22 +116,8 @@ function movieThis() {
     });
 }
 
-// 3. `node liri.js movie-this '<movie name here>'`
-//    * This will output the following information to your terminal/bash window:
-//      ```
-//        * Title of the movie.
-//        * Year the movie came out.
-//        * IMDB Rating of the movie.
 //        * Rotten Tomatoes Rating of the movie.
-//        * Country where the movie was produced.
-//        * Language of the movie.
-//        * Plot of the movie.
-//        * Actors in the movie.
-//      ```
-//    * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-//      * If you haven't watched "Mr. Nobody," then you should: <http://www.imdb.com/title/tt0485947/>
-//      * It's on Netflix!
-//    * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
+
 function doWhatItSays() 
 {console.log("do-what-it-says");
 console.log(userInput);
@@ -187,4 +130,30 @@ if (userInput === undefined) {
 // 4. `node liri.js do-what-it-says`
 //    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 //      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-//      * Edit the text in random.txt to test out the feature for movie-this and concert-this.
+//      * Edit the text in random.txt to test out the feature for movie-this and concert-this
+
+
+
+function concertThisCheck() {
+if (process.argv[2] === undefined){
+    userInput = "Celine+Dion"
+console.log("undefined");
+}
+    userInput = userInput;
+console.log("defined as "+ userInput);};
+
+function spotifyThisCheck() {
+    if (process.argv[2] === undefined){
+        userInput = "The+Chain"
+    console.log("undefined");
+    }
+        userInput = userInput;
+    console.log("defined as "+ userInput);};
+
+function movieThisCheck() {
+if (process.argv[2] === undefined){
+    userInput = "Mr+Nobody"
+console.log("undefined");
+}
+    userInput = userInput;
+console.log("defined as "+ userInput);};
