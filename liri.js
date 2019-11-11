@@ -52,8 +52,16 @@ inquirer.prompt({
 
 function concertThis() {
     console.log("concert-this");
-    // if (process.argv[3] === undefined) {
+    // if (process.argv[2] === undefined) {
     //     userInput = "Celine Dion";
+    // }
+    // Check length of process.argv
+    // if process.argv > 2
+    // {
+    // run userinput
+    // }
+    // else {
+    // run celine dion
     // }
 
     var artist = userInput;
@@ -89,7 +97,7 @@ function spotifyThisSong() {
 
     });
 }
-
+//  integrate ace of base "the sign"
 //    * If no song is provided then your program will default to "The Sign" by Ace of Base.
 //    * You will utilize the [node-spotify-api](https://www.npmjs.com/package/node-spotify-api) package in order to retrieve song information from the Spotify API.
 //    * The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
@@ -111,9 +119,16 @@ function movieThis() {
                 Plot: JSON.parse(body).Plot,
                 Actors: JSON.parse(body).Actors,
             }
-        console.log("Completed")
-        console.log(movie.Title, movie.Year,)
-      
+        console.log("Completed");
+        console.log(movie.Title);
+        console.log(movie.Year);
+        console.log(movie.imdbRating);
+        // console.log(movie.Ratings[1].Value);
+        console.log(movie.Country);
+        console.log(movie.Language);
+        console.log(movie.Plot);
+        console.log(movie.Actors);
+    //   Got to finish console.log this data
     });
 }
 
