@@ -10,12 +10,13 @@ var momentPackage = require("moment");
 var fsPackage = require("fs"); 
 var userInput = process.argv[2];
 
+// Austin Bruch Code
 // var array = [];
 // for (var i = 2; i < process.argv.length; i++) {
 //     array.push(process.argv[i]);
 // }
 // console.log(array.join("+"));
-// Austin Bruch Code
+
 
 if (process.argv.length > 3) ;
 {	var userInput="";
@@ -94,7 +95,6 @@ else {
     };
     }});
 };
-//    * If no song is provided then your program will default to "The Sign" by Ace of Base.
 
 function movieThis() {
     movieThisCheck() ;
@@ -105,7 +105,8 @@ function movieThis() {
                 Title: JSON.parse(body).Title,
                 Year: JSON.parse(body).Year,
                 IMDB_Rating: JSON.parse(body).imdbRating,
-                Rotten_Tomatoes_Rating: JSON.parse(body).Ratings[1].Value,
+                // Rotten_Tomatoes_Rating: JSON.parse(body).Ratings[1].Value,
+                // returning undefined, for Mr. Nobody
                 Country: JSON.parse(body).Country,
                 Language: JSON.parse(body).Language,
                 Plot: JSON.parse(body).Plot,
@@ -113,6 +114,7 @@ function movieThis() {
                 }
         // fsPackage.appendFile("log.txt", "Title: " + movie.Title + "\n"),
         console.log("Completed");
+        console.log(JSON.parse(body));
         console.log(movie.Title);
         console.log(movie.Year);
         console.log(movie.imdbRating);
@@ -121,45 +123,26 @@ function movieThis() {
         console.log(movie.Language);
         console.log(movie.Plot);
         console.log(movie.Actors);
-    //   Got to finish console.log ing this data
     });
 }
 
-//        * Rotten Tomatoes Rating of the movie.
 
-function doWhatItSays() 
-{
-fsPackageTest();
-//     console.log("do-what-it-says");
-// console.log(userInput);
-// if (userInput === undefined) {
-//     userInput = "I Want It That Way";
-//     spotifyThisSong(userInput);
-// }
-// fsPackage.readFile('random.txt', 'utf8', function(err, data){
-// 		if (err){ 
-// 			return console.log(err);
-// 		}
-//         var testArray = data.split(',');
-//         console.log(testArray);
-// 	});
+function doWhatItSays() {
+fsPackage.readFile('random.txt', 'utf8', function(err, data){
+		if (err){ 
+			return console.log(err);
+        }
+        
+        var testArray = data.split(',');
+        spotifyThisSong(testArray[1]);
+        console.log(testArray);
+	});
 }});
 
 // 4. `node liri.js do-what-it-says`
 //    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 //      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
 //      * Edit the text in random.txt to test out the feature for movie-this and concert-this
-
-function fsPackageTest() {
-
-data = "Test,Test,Test";
-fsPackageTest.appendFileSync('sample.txt',data, 'utf8',
-    function(err) { 
-        if (err) throw err;
-        console.log("Success")
-})};
-// Fix this - office hours Tuesday
-
 
 
 function concertThisCheck() {
