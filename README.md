@@ -17,3 +17,9 @@ concertThis takes in the argument(s) and returns the concert venue, location, an
 movieThis takes in the argument(s) and returns Title, year, IMBD rating, country, language, plot, and actors
 
 doWhatItSays takes in the first part of the txt file and searches the second part of it based on the first function(currently not working)
+
+links here
+https://github.com/robertmoore40/liri-node-app/blob/master/liri/Songthis.PNG
+https://github.com/robertmoore40/liri-node-app/blob/master/liri/concertThis.PNG
+https://github.com/robertmoore40/liri-node-app/blob/master/liri/dowhatitsays.PNG
+https://github.com/robertmoore40/liri-node-app/blob/master/liri/moviethis.PNG
