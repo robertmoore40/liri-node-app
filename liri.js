@@ -114,7 +114,7 @@ function movieThis() {
                 }
         // fsPackage.appendFile("log.txt", "Title: " + movie.Title + "\n"),
         console.log("Completed");
-        console.log(JSON.parse(body));
+        // console.log(JSON.parse(body));
         console.log(movie.Title);
         console.log(movie.Year);
         console.log(movie.imdbRating);
